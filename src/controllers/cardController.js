@@ -16,9 +16,18 @@ const isValidName = function (value) {
   }
 
 const createCard=async function (req,res){
-   try{
-    const data=req.body
-   const {cardType,status,vision,customerID}=data 
+//    try{
+    let data=req.body
+   let {cardType,status,vision,customerID}=data 
+
+   const cardNumber=await cardModel.find().count()
+
+   if(cardNumber==0){
+    data.cardNumber="C001"
+   }
+   else{
+    data.cardNumber="C00"+(cardNumber+1)
+}
 
    if(!customerID){
     return res.status(400).send({status:false,msg:"please provide customerID"})
@@ -56,10 +65,10 @@ return res.status(400).send({status:false,msg:"vision field is not valid"})
    const card=await cardModel.create(data)
 
    return res.status(201).send({status:true,msg:"card created successfully",data:card})
-    }
-    catch(error){
-        return res.status(500).send({status:false,msg:error.message})
-    }
+    // }
+    // catch(error){
+    //     return res.status(500).send({status:false,msg:error.message})
+    // }
 }
 
 const getCards=async function(req,res){
