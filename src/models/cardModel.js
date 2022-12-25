@@ -1,6 +1,6 @@
 const mongoose=require("mongoose")
 
-const cardSchema= new mongooose.Schema({
+const cardSchema= new mongoose.Schema({
     cardNumber:{
         type:String,
         required:true,
