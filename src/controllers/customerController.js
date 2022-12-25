@@ -1,6 +1,6 @@
 const customerModel = require("../models/customerModel");
 
-const short=require("short-uuid")
+const uuid=require("uuid")
 
 const validate=require("uuid-validate")
 
@@ -80,7 +80,7 @@ const createCustomer=async function(req,res){
         return res.status(400).send({status:false, msg:"Email is already registered"})  
     }
 
-    const customerId=short.generate()
+    const customerId=uuid.v4()
     data.customerID=customerId
 
     if(status){
